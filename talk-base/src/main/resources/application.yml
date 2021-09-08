@@ -1,0 +1,13 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: talk-base
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tensquare_base
+    username: root
+    password: 246222
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
