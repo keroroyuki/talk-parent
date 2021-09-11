@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qa.dao.ProblemDao">
+
+    <resultMap id="BaseResultMap" type="com.qa.pojo.Problem">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="content" jdbcType="CLOB" property="content" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="userid" jdbcType="VARCHAR" property="userid" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="visits" jdbcType="BIGINT" property="visits" />
+        <result column="thumbup" jdbcType="BIGINT" property="thumbup" />
+        <result column="reply" jdbcType="BIGINT" property="reply" />
+        <result column="solve" jdbcType="VARCHAR" property="solve" />
+        <result column="replyname" jdbcType="VARCHAR" property="replyname" />
+        <result column="replytime" jdbcType="TIMESTAMP" property="replytime" />
+    </resultMap>
+
+    <sql id="BaseList">
+        id, title, content, createtime, updatetime, userid, nickname, visits, thumbup, reply, solve,
+        replyname, replytime
+    </sql>
+
+    <!-- 根据标签ID查询最新问题列表 -->
+    <select id="newQa" resultMap="BaseResultMap">
+        select
+        <include refid="BaseList"/>
+        from tb_problem
+        where id in
+              (select problemid from tb_pl where labelid=#{labelid})
+        order by replytime desc
+    </select>
+
+    <!-- 根据标签ID查询热门问题列表 -->
+    <select id="hotQaList" resultMap="BaseResultMap">
+        select
+        <include refid="BaseList"/>
+        from tb_problem
+        where id in
+              (select problemid from tb_pl where labelid=#{labelid})
+        order by reply desc
+    </select>
+
+    <!-- 根据标签ID查询等待回答列表 -->
+    <select id="waitQaList" resultMap="BaseResultMap">
+        select
+        <include refid="BaseList"/>
+        from tb_problem
+        where id in
+            (select problemid from tb_pl where labelid=#{labelid})
+        and reply=0
+        order by createtime desc
+    </select>
+
+</mapper>
