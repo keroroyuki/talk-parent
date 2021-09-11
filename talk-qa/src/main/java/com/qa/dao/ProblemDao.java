@@ -6,8 +6,6 @@ import com.qa.pojo.Problem;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * @author 谭嘉乐
  */
