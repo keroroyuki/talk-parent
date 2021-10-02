@@ -12,6 +12,7 @@
         <module>talk-common</module>
         <module>talk-recruit</module>
         <module>talk-qa</module>
+        <module>talk-article</module>
     </modules>
     <packaging>pom</packaging>
     <name>talk-parent</name>
